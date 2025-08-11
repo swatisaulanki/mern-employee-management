@@ -4,10 +4,13 @@ const upload = require("../middleware/upload"); // your multer upload middleware
 const empRouter = express.Router();
 
 // ==================== CREATE EMPLOYEE ====================
+
 empRouter.post("/createmp", upload.single("f_Image"), async (req, res) => {
   try {
+    const { f_Id, ...employeeData } = req.body;  // exclude f_Id
+
     const newEmployee = new EmployeeModel({
-      ...req.body,
+      ...employeeData,
       f_Image: req.file ? req.file.filename : null
     });
 
@@ -23,6 +26,7 @@ empRouter.post("/createmp", upload.single("f_Image"), async (req, res) => {
     });
   }
 });
+
 
 // ==================== GET ALL EMPLOYEES (with pagination) ====================
 empRouter.get("/getemp", async (req, res) => {

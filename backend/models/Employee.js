@@ -8,7 +8,6 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const employeeSchema = new mongoose.Schema({
   f_Id: {
      type: Number, // Will be auto-generated
-      required: true, 
       unique: true 
     },
   f_Image:
