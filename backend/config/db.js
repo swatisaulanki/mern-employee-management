@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+// connection
 
-const connection = mongoose.connect(process.env.MongoURL, {
-  useNewUrlParser: true
-});
+const mongoose=require("mongoose")
+require("dotenv").config()
 
-module.exports = connection;
+const connection= mongoose.connect(process.env.MongoURL)
+
+module.exports=connection
