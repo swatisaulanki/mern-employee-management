@@ -68,15 +68,16 @@ const EmployeeTable = ({ data, fetchEmployees }) => {
                                 <tr key={row.f_Id} className="border-t">
                                     <td className="px-4 py-4 border-b">{row.f_Id}</td>
                                     <td className="px-4 py-4 border-b">
-                                        <img
-                                            src={row.f_Image || "https://via.placeholder.com/48?text=No+Img"}
-                                            alt={row.f_Name || "Profile"}
-                                            className="w-12 h-12 rounded-full object-cover"
-                                            onError={(e) => {
-                                                e.target.onerror = null;
-                                                e.target.src = "https://via.placeholder.com/48?text=No+Img";
-                                            }}
-                                        />
+                                           <img
+  src={
+    row.f_Image
+      ? `https://mern-employee-management-bep4.onrender.com/uploads/${row.f_Image}`
+      : "https://dummyimage.com/48x48/cccccc/000000&text=No+Img"
+  }
+  alt={row.f_Name || "Profile"}
+  className="w-12 h-12 rounded-full object-cover"
+/>
+
                                     </td>
                                     <td className="px-4 py-4 border-b">{row.f_Name}</td>
                                     <td className="px-4 py-4 border-b">{row.f_Email}</td>

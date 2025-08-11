@@ -34,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full min-h-screen font-poppinsRegular text-white bg-custom-color2">
+    <div className="w-full min-h-screen font-poppinsRegular text-white  bg-black">
       <div className="w-full">
         <p className="md:w-[20%] w-full px-10 py-7 text-2xl">Login page</p>
       </div>
@@ -85,7 +85,7 @@ const Login = () => {
 
           <div className="m-auto lg:w-[62%] w-full text-center">
             <button
-              className="bg-custom-color2 lg:w-[88%] text-xl w-full h-12 hover:bg-custom-color1 text-white font-poppinsBold rounded focus:outline-none focus:shadow-outline"
+              className=" bg-black lg:w-[88%] text-xl w-full h-12 hover:bg-custom-color1 text-white font-poppinsBold rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Login

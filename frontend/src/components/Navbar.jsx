@@ -5,8 +5,17 @@ import { Contextsfetch } from "../context/AuthContext";
 const Navbar = () => {
   const navigate = useNavigate();
   const { logout } = useContext(Contextsfetch);
-  const [authUser, setAuthUser] = useState(localStorage.getItem("authUser"));
   const location = useLocation();
+
+  // Only check once if user is on signin page
+  const isSigninPage = location.pathname === "/signin";
+
+  // authUser is stored as string in localStorage (could be username or JSON string)
+  const [authUser, setAuthUser] = useState(localStorage.getItem("authUser"));
+
+  useEffect(() => {
+    setAuthUser(localStorage.getItem("authUser"));
+  }, [location.pathname]);
 
   const findCurrentLocation = () => {
     switch (location.pathname) {
@@ -21,10 +30,6 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    setAuthUser(localStorage.getItem("authUser"));
-  }, [location.pathname]);
-
   const handleLogout = () => {
     logout();
     navigate("/signin");
@@ -32,37 +37,30 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="flex justify-between items-center bg-slate-900 text-white text-lg font-bold p-4">
-        {location.pathname !== "/signin" && (
+      <nav className="flex justify-between items-center  bg-black text-white text-lg font-bold p-4">
+        {!isSigninPage && (
           <div className="flex gap-16">
-            <button
-              onClick={() => navigate("/")}
-              className="hover:text-gray-300"
-            >
+            <button onClick={() => navigate("/")} className="hover:text-gray-300">
               Home
             </button>
-            <button
-              onClick={() => navigate("/employeelist")}
-              className="hover:text-gray-300"
-            >
+            <button onClick={() => navigate("/employeelist")} className="hover:text-gray-300">
               Employee List
             </button>
           </div>
         )}
-        {location.pathname !== "/signin" && (
+        {!isSigninPage && (
           <div className="flex gap-16">
-            <span>{authUser}</span>
+            <span>{authUser || "Guest"}</span>
             <button className="hover:text-gray-300" onClick={handleLogout}>
               Logout
             </button>
           </div>
         )}
       </nav>
-      {location.pathname !== "/signin" && (
+
+      {!isSigninPage && (
         <div className="bg-gray-200 p-4 rounded-md shadow-md">
-          <p className="text-2xl font-bold text-purple-900">
-            {findCurrentLocation()}
-          </p>
+          <p className="text-2xl font-bold text-purple-900">{findCurrentLocation()}</p>
         </div>
       )}
     </div>

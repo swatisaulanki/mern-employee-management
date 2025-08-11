@@ -1,12 +1,14 @@
 import logo from './logo.svg';
+import './App.css';
+
 import Navbar from './components/Navbar';
 import Routing from './Routing';
 
 function App() {
   return (
-    <div>
-    <Navbar/>
-    <Routing/>
+    <div className="App">
+      <Navbar/>
+      <Routing/>
     </div>
   );
 }
