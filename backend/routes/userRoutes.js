@@ -1,73 +1,53 @@
-// routes/users.js
+// routes/user.js
 
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const userRouter = express.Router();
-const userModel = require('../models/User');
 const validateStringFields = require('../middleware/validateStringFields');
+const userModel = require('../models/User');
 
-// ==================== GET ALL USERS ====================
-userRouter.get('/', async (req, res) => {
+//  Get all users
+userRouter.get('/getUsers', async (req, res) => {
   try {
     const users = await userModel.find();
     res.json(users);
   } catch (err) {
-    res.status(500).json({ message: 'Server Error', error: err.message });
+    res.status(500).send('Server Error');
   }
 });
 
-// ==================== FIND USER (Login) ====================
+//   Get user
 userRouter.get('/findUser', async (req, res) => {
-  const { f_userName, f_Pwd } = req.query;
-
-  if (!f_userName || !f_Pwd) {
-    return res.status(400).json({ message: 'Username and password are required' });
-  }
-
+  const {f_userName,f_Pwd} = req.query;
   try {
     const user = await userModel.findOne({ f_userName });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ msg: 'User not found' });
     }
-
-    const isMatch = await bcrypt.compare(f_Pwd, user.f_Pwd);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Wrong password' });
+    else if(user.f_Pwd === f_Pwd){
+      res.json(user);
     }
-
-    res.json(user);
+    else {
+      res.status(404).json({msg:"Wrong Password"})
+    }
+    
   } catch (err) {
-    res.status(500).json({ message: 'Server Error', error: err.message });
+    res.status(500).send('Server Error');
   }
 });
 
-// ==================== CREATE USER ====================
-userRouter.post(
-  '/createUser',
-  validateStringFields(['f_userName', 'f_Pwd']),
-  async (req, res) => {
-    const { f_userName, f_Pwd } = req.body;
-
-    try {
-      const existingUser = await userModel.findOne({ f_userName });
-      if (existingUser) {
-        return res.status(400).json({ message: 'Username already exists' });
-      }
-
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(f_Pwd, salt);
-
-      const newUser = new userModel({
-        f_userName,
-        f_Pwd: hashedPassword
-      });
-
-      const savedUser = await newUser.save();
-      res.status(201).json(savedUser);
-    } catch (err) {
-      res.status(500).json({ message: 'Server Error', error: err.message });
-    }
+// Add a new user
+userRouter.post('/createUser', validateStringFields(['f_userName', 'f_Pwd']), async (req, res) => {
+  const { f_userName, f_Pwd } = req.body;
+  try {
+    const newUser = new userModel({
+      f_userName,
+      f_Pwd
+    });
+    const user = await newUser.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).send('Server Error');
   }
-);
+});
 
 module.exports = userRouter;

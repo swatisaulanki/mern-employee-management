@@ -2,6 +2,7 @@ const express = require("express");
 const connection = require("./config/db");
 const cors = require("cors");
 const empRouter = require("./routes/employeeRoutes");
+const userRouter = require("./routes/userRoutes");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use("/uploads", express.static("uploads"));
 
 // Mount employee router at /api/employee
 app.use("/api/employee", empRouter);
+app.use("/api/user", userRouter)
 
 app.get("/", (req, res) => {
   res.send(`
