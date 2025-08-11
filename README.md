@@ -15,7 +15,6 @@ This app allows you to register, login, and manage employee records with CRUD op
 - Responsive UI built with React  
 - RESTful API backend with Express and Node.js  
 - MongoDB database for storing users and employee data  
-- Deployed on Render.com  
 
 ---
 
@@ -24,7 +23,6 @@ This app allows you to register, login, and manage employee records with CRUD op
 - **Frontend:** React.js  
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB (Atlas)  
-- **Deployment:** Render.com  
 
 ## Usage
 
