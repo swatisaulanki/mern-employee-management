@@ -37,7 +37,7 @@ const Navbar = () => {
 
   return (
     <div>
-      <nav className="flex justify-between items-center  bg-black text-white text-lg font-bold p-4">
+      <nav className="flex justify-between items-center bg-gradient-to-tr from-indigo-900 via-purple-900 to-black text-white text-lg font-bold p-4">
         {!isSigninPage && (
           <div className="flex gap-16">
             <button onClick={() => navigate("/")} className="hover:text-gray-300">

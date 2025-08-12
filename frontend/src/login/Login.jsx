@@ -18,7 +18,7 @@ const Login = () => {
 
       if (response.data && response.data.f_userName) {
         localStorage.setItem("authUser", response.data.f_userName);
-        login(); // only set auth after valid user
+        login();
       } else {
         alert("Invalid username or password");
       }
@@ -29,70 +29,69 @@ const Login = () => {
   };
 
   const handleLogin = (e) => {
-    e.preventDefault(); // prevent form reload
+    e.preventDefault();
     fetchUser();
   };
 
   return (
-    <div className="w-full min-h-screen font-poppinsRegular text-white  bg-black">
-      <div className="w-full">
-        <p className="md:w-[20%] w-full px-10 py-7 text-2xl">Login page</p>
-      </div>
-      <form
-        className="bg-custom-color3 mt-24 lg:w-[50%] w-full md:w-[50%] m-auto text-white rounded-xl"
-        onSubmit={handleLogin}
-      >
-        <div className="object-cover rounded-lg p-8 bg-purple-200">
-          <div className="container w-full py-6 flex flex-col lg:flex-row gap-5">
-            <div className="lg:w-[70%] m-auto w-full flex gap-6">
-              <label
-                className="block text-gray-700 md:text-xl text-sm font-poppinsBold py-2"
-                htmlFor="username"
-              >
-                UserName
-              </label>
-              <input
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                className="shadow text-sm appearance-none rounded w-full h-12 p-2 text-black leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Enter your UserName"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="container w-full py-6 flex flex-col lg:flex-row gap-5">
-            <div className="lg:w-[70%] m-auto w-full flex gap-8">
-              <label
-                className="block text-gray-700 md:text-xl text-sm font-poppinsBold py-2"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <input
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-                className="shadow text-sm appearance-none rounded w-full h-12 p-2 text-black leading-tight focus:outline-none focus:shadow-outline"
-                type="password"
-                id="password"
-                placeholder="Enter your Password"
-                required
-              />
-            </div>
-          </div>
-
-          <div className="m-auto lg:w-[62%] w-full text-center">
-            <button
-              className=" bg-black lg:w-[88%] text-xl w-full h-12 hover:bg-custom-color1 text-white font-poppinsBold rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Login
-            </button>
-          </div>
+    <div className="min-h-screen bg-gradient-to-tr from-indigo-900 via-purple-900 to-black flex flex-col justify-center px-4">
+      <div className="max-w-md w-full mx-auto bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-purple-700">
+        <div className="text-center py-10 px-8 border-b border-purple-600">
+          <h1 className="text-white text-3xl font-extrabold tracking-wide font-poppinsBold">Welcome Back</h1>
+          <p className="text-purple-300 mt-2 text-sm font-poppinsRegular">
+            Please login to your account
+          </p>
         </div>
-      </form>
+
+        <form onSubmit={handleLogin} className="p-8 space-y-6">
+          <div>
+            <label
+              htmlFor="username"
+              className="block mb-2 text-sm font-semibold text-purple-200 font-poppinsBold"
+            >
+              Username
+            </label>
+            <input
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              id="username"
+              type="text"
+              placeholder="Enter your username"
+              required
+              className="w-full px-4 py-3 rounded-lg bg-purple-900 text-white placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-semibold text-purple-200 font-poppinsBold"
+            >
+              Password
+            </label>
+            <input
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              required
+              className="w-full px-4 py-3 rounded-lg bg-purple-900 text-white placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white text-lg font-poppinsBold transition"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+
+      <p className="mt-8 text-center text-purple-400 text-sm font-poppinsRegular">
+        &copy; 2025 Your Company. All rights reserved.
+      </p>
     </div>
   );
 };
